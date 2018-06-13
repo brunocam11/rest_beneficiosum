@@ -30,7 +30,6 @@ app.use((req, res, next) => {
     next();
 });
 
-
 // Rutas
 app.use('/beneficios', beneficiosRoutes);
 app.use('/empresas', empresasRoutes);
