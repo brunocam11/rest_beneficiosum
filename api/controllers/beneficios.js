@@ -17,13 +17,14 @@ exports.beneficios_get_all = (req, res, next) => {
 }
 
 exports.beneficios_create = (req, res, next) => {
+    console.log(req);
     const beneficio = new Beneficio({
         _id: new mongoose.Types.ObjectId(),
         titulo: req.body.titulo,
         descripcion: req.body.descripcion,
         promocion: req.body.promocion,
         locales: req.body.locales,
-        foto: req.file.path,
+        foto: req.body.foto,
         categorias: req.body.categorias,
         fch_inicio: req.body.fch_inicio,
         fch_fin: req.body.fch_fin
