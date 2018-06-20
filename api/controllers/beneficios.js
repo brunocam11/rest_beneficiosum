@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const Beneficio = require('../models/beneficio');
+//const DeviceController = require('./devices');
+const notificationSender = require('../../sendNotification');
 
 exports.beneficios_get_all = (req, res, next) => {
 
@@ -31,7 +33,7 @@ exports.beneficios_create = (req, res, next) => {
     });
 
     beneficio.save().then((result) => {
-        console.log(result);
+        notificationSender.enviarMensaje('Se ha agregado un beneficio de '+req.body.promocion+' en '+req.body.titulo)+'. No te lo pierdas!';
         res.status(201).json({
             message: 'El beneficio fue creado!',
             beneficioCreado: beneficio
