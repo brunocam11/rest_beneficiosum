@@ -151,23 +151,3 @@ exports.usuarios_activar = (req, res, next) => {
         }
       })
 }
-
-exports.beneficios_update_beneficio = (req, res, next) => {
-  const idBeneficio = req.params.id;
-
-  const updateOps = {};
-  for (const ops of req.body) {
-      updateOps[ops.propName] = ops.value;
-  }
-
-  Beneficio.update({_id: id}, { $set: updateOps }).exec().then((result) => {
-      res.status(200).json(result);
-  }).catch((err) => {
-      console.log(err);
-      res.status(500).json({ error: err });
-  });
-
-  res.status(200).json({
-      message: 'El beneficio de id = '+ idBeneficio + ' fue actualizado!'
-  });
-}
