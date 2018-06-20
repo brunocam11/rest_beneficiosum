@@ -12,4 +12,6 @@ router.get('/', UsuariosController.usuarios_get_all);
 
 router.post('/mail', UsuariosController.usuarios_enviar_mail);
 
+router.post('/activar', UsuariosController.usuarios_activar);
+
 module.exports = router;

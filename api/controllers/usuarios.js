@@ -132,7 +132,7 @@ exports.usuarios_enviar_mail = (req, res, next) => {
   });  
 }
 
-exports.usuarios_verificar_numero = (req, res, next) => {
+exports.usuarios_activar = (req, res, next) => {
   var email = req.body.email;
   var numeroVerificacion = req.body.numeroVerificacion;
 
