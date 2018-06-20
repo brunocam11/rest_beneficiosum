@@ -131,3 +131,43 @@ exports.usuarios_enviar_mail = (req, res, next) => {
       console.log(body);
   });  
 }
+
+exports.usuarios_verificar_numero = (req, res, next) => {
+  var email = req.body.email;
+  var numeroVerificacion = req.body.numeroVerificacion;
+
+  Usuario.find({email: email})
+      .exec()
+      .then( usuario => {
+        if (usuario.length >= 1) {
+          if (numeroVerificacion == usuario[0].numeroVerificacion){
+            Usuario.update({email: email}, {$set: {estado: true}}).exec();
+          }
+        } else {
+          // Porque el metodo find devuelve un array
+          return res.status(409).json({
+            message: "Lo sentimos. El mail no existe."
+          });
+        }
+      })
+}
+
+exports.beneficios_update_beneficio = (req, res, next) => {
+  const idBeneficio = req.params.id;
+
+  const updateOps = {};
+  for (const ops of req.body) {
+      updateOps[ops.propName] = ops.value;
+  }
+
+  Beneficio.update({_id: id}, { $set: updateOps }).exec().then((result) => {
+      res.status(200).json(result);
+  }).catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: err });
+  });
+
+  res.status(200).json({
+      message: 'El beneficio de id = '+ idBeneficio + ' fue actualizado!'
+  });
+}
