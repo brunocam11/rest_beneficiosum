@@ -10,4 +10,6 @@ router.delete('/:id', UsuariosController.usuarios_delete_usuario);
 
 router.get('/', UsuariosController.usuarios_get_all);
 
+router.post('/mail', UsuariosController.usuarios_enviar_mail);
+
 module.exports = router;

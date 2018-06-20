@@ -11,7 +11,7 @@ const usuariosRoutes = require('./api/routes/usuarios');
 const devicesRoutes = require('./api/routes/devices');
 const pushNotificationSender = require('./sendNotification');
 
-pushNotificationSender.enviarMensaje();
+//pushNotificationSender.enviarMensaje();
 
 mongoose.connect('mongodb+srv://beneficiosum:beneficiosum@beneficios-um-rest-87dca.mongodb.net/test?retryWrites=false');
 

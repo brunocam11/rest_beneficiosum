@@ -113,3 +113,21 @@ exports.usuarios_login = (req, res, next) => {
         res.status(500).json({ error: err })
     });
 }
+exports.usuarios_enviar_mail = (req, res, next) => {
+  var api_key = 'key-c2756a1f00f4f70f394bdf10a529c2f7';
+  var domain = 'sandboxfce0a2c4b1e64be8933ad6af7183624c.mailgun.org';
+  var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
+  var data = {
+      from: 'postmaster@sandboxfce0a2c4b1e64be8933ad6af7183624c.mailgun.org',
+      to: req.body.email,
+      subject: 'Confirmación de cuenta de BeneficiosUM',
+      html: '<p style="color:blue;">Hola,</p>'+
+      '<p>¡Gracias por registrarte a BeneficiosUM!</p>'+
+      '<p>Ahora estarás al tanto de todas los beneficios que tenés por estudiar en la UM.</p>'+
+      '<p>Tu número de verificación es: '+req.body.numeroVerificacion+'</p>'
+  };
+
+  mailgun.messages().send(data, function (error, body) {
+      console.log(body);
+  });  
+}
