@@ -25,7 +25,8 @@ exports.usuarios_singup = (req, res, next) => {
                   email: req.body.email,
                   password: hashedPass,
                   numeroVerificacion: req.body.numeroVerificacion,
-                  estado: req.body.estado
+                  estado: req.body.estado,
+                  tipoUsuario: req.body.tipoUsuario
               });
               usuario.save().then((result) => {
                   console.log(result);
