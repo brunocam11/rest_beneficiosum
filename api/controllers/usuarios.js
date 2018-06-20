@@ -45,6 +45,9 @@ exports.usuarios_singup = (req, res, next) => {
 }
 
 exports.usuarios_login = (req, res, next) => {
+
+
+
     Usuario.find({ email: req.body.email })
       .exec()
       .then( usuario => {
@@ -54,7 +57,7 @@ exports.usuarios_login = (req, res, next) => {
           });
         } 
         bcrypt.compare(req.body.password, usuario[0].password, (err, result) => {
-           if (err) {
+            if (err) {
               return res.status(401).json({
                 message: 'Auth failed'
               });
@@ -72,7 +75,8 @@ exports.usuarios_login = (req, res, next) => {
               );
               return res.status(200).json({
                 message: 'Auth successful',
-                token: token
+                token: token,
+                tipoUsuario: usuario[0].tipoUsuario
               });
             }        
             res.status(401).json({
