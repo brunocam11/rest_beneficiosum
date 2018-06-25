@@ -7,11 +7,16 @@ exports.recibir_token = (req, res, next) => {
       //message: 'Hola'
     });
     //Guardar informacion del usuario
-    Device.find({ email: req.body.email })
+    Device.find({ duuid: req.body.duuid })
           .exec()
           .then( device => {
             if (device.length >= 1) {
-              // Ya se registro una vez ese device
+              Device.update({duuid: duuid}, {$set: {email: req.body.email, token: req.body.token}}).exec().then((result) => {
+                res.status(200).json(result);
+            }).catch((err) => {
+                console.log(err);
+                res.status(500).json({ error: err });
+            });
             } else {
               // Registrar el device
               const device = new Device({

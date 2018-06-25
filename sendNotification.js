@@ -3,7 +3,6 @@ const express = require('express');
 const router = express.Router();
 const DevicesController = require('./api/controllers/devices');
 const Device = require('./api/models/device');
-var servidor = '192.168.1.50';
 
  
 // Preparan la conexión al FCM. Una única vez para múltiples mensajes.
