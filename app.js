@@ -9,7 +9,7 @@ const empresasRoutes = require('./api/routes/empresas');
 const categoriasRoutes = require('./api/routes/categorias');
 const usuariosRoutes = require('./api/routes/usuarios');
 const devicesRoutes = require('./api/routes/devices');
-const pushNotificationSender = require('./sendNotification');
+//const pushNotificationSender = require('./sendNotification');
 
 //pushNotificationSender.enviarMensaje();
 
@@ -39,7 +39,6 @@ app.use('/empresas', empresasRoutes);
 app.use('/categorias', categoriasRoutes);
 app.use('/usuarios', usuariosRoutes);
 app.use('/devices', devicesRoutes);
-
 
 // Si la peticion pasa por todas las rutas
 app.use((req, res, next) => {

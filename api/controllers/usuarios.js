@@ -45,9 +45,6 @@ exports.usuarios_singup = (req, res, next) => {
 }
 
 exports.usuarios_login = (req, res, next) => {
-
-
-
     Usuario.find({ email: req.body.email })
       .exec()
       .then( usuario => {

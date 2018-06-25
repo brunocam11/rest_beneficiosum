@@ -4,7 +4,7 @@ const Device = require('../models/device');
 exports.recibir_token = (req, res, next) => {
     console.log(req.body);
     res.status(200).json({
-      message: 'Hola'
+      //message: 'Hola'
     });
     //Guardar informacion del usuario
     Device.find({ email: req.body.email })
@@ -15,16 +15,17 @@ exports.recibir_token = (req, res, next) => {
             } else {
               // Registrar el device
               const device = new Device({
-                deviceId: req.body.deviceId,
+                _id: new mongoose.Types.ObjectId(),
+                duuid: req.body.duuid,
                 email: req.body.email,
                 token: req.body.token,
                 plataforma: req.body.plataforma
               });
-              device.save().then( (result) => {
+              device.save().then((result) => {
                 console.log(result);
                 res.status(201).json({
                   message: 'El device ha sido registrado!',
-                  usuarioCreado: usuario
+                  deviceCreado: device
                 });
               })
               .catch((err) => {
@@ -40,7 +41,6 @@ exports.recibir_token = (req, res, next) => {
 
 exports.devices_get_all = (req, res, next) => {
   Device.find().select('-__v').exec().then((docs) => {
-      console.log(docs);
       const response = {
           count: docs.length,
           devices: docs
@@ -49,5 +49,19 @@ exports.devices_get_all = (req, res, next) => {
   }).catch((err) => {
       console.log(err);
       res.status(500).json({ error: err })
+  });
+}
+
+exports.borrar_token = (req, res, next) => {
+  const email = req.params.email;
+  console.log('email: '+email);
+
+  Device.remove({ email: email }).exec().then( result => {
+      res.status(200).json({
+        message: 'Device eliminado!'
+      });
+  }).catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: err });
   });
 }

@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
 
 const devicesSchema = mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
     duuid: { type: String, required: true },
     email: { type: String, required: true, match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/ },
-    //token: { type: String, required: true },
+    token: { type: String, required: true },
     plataforma: { type: String, required: true }
 });
 
