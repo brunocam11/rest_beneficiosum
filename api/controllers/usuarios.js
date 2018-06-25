@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Usuario = require('../models/usuario');
+const nodemailer = require ('nodemailer');
+const xoauth2 = require ('xoauth2');
 
 exports.usuarios_singup = (req, res, next) => {
     Usuario.find({email: req.body.email})
@@ -114,6 +116,38 @@ exports.usuarios_login = (req, res, next) => {
         res.status(500).json({ error: err })
     });
 }
+
+exports.usuarios_enviar_mail = (req, res, next) => {
+  console.log(req.body.email);
+  let transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: {
+        type: 'OAuth2',
+        clientId: '1086349666482-sceukj55955lhk6p1ra47djdcs9cdj8u.apps.googleusercontent.com',
+        clientSecret: 'sOQ8wrKxA8_pNMl_Q62G0M7V'
+    }
+});
+
+transporter.sendMail({
+    from: 'beneficiosum2018@gmail.com',
+    to: req.body.email,
+    subject: 'Confirmación de cuenta de BeneficiosUM',
+    html: '<p>Hola '+req.body.nombre+',</p>'+
+    '<p>¡Gracias por registrarte a BeneficiosUM</p>'+
+    '<p>Ahora estarás al tanto de todos los beneficios que tenés por estudiar en la UM</p>'+
+    '<p>Tu número de verificación es: '+req.body.numeroVerificacion+'</p>',
+    auth: {
+        user: 'beneficiosum2018@gmail.com',
+        refreshToken: '1/VE9-3a65KyaL7L89ADKAaUx5rPB7HRORmZcL4oupJOvuB9OgMaDiwZ8L0kIUYW9c',
+        accessToken: 'ya29.GlvlBcKdw7yIhmlDCn8WRp7nlSJ3SAA5MjF5k21qWl34PkuGO3FkAYpII74li2Ip6bLXedTR_aO6EwgWRI3kDkeLPqxxjL8xJJauVhUirBVIj26n6A6bzV9lmAvP',
+        expires: 1484314697598
+    }
+});
+}
+
+/* ESTA FUNCION ANDA
 exports.usuarios_enviar_mail = (req, res, next) => {
   var api_key = 'key-c2756a1f00f4f70f394bdf10a529c2f7';
   var domain = 'sandboxfce0a2c4b1e64be8933ad6af7183624c.mailgun.org';
@@ -131,7 +165,43 @@ exports.usuarios_enviar_mail = (req, res, next) => {
   mailgun.messages().send(data, function (error, body) {
       console.log(body);
   });  
+}*/
+
+
+
+
+/*
+exports.usuarios_enviar_mail = (req, res, next) => {
+  var transporter = nodemailer.createTransport ({
+    service: 'gmail',
+    auth: {
+      xoauth2: xoauth2.createXOAuth2Generator({
+        user: 'beneficiosum2018@gmail.com',
+        clientId: '1086349666482-sceukj55955lhk6p1ra47djdcs9cdj8u.apps.googleusercontent.com',
+        clientSecret: 'sOQ8wrKxA8_pNMl_Q62G0M7V',
+        refreshToken: '1/VE9-3a65KyaL7L89ADKAaUx5rPB7HRORmZcL4oupJOvuB9OgMaDiwZ8L0kIUYW9c'
+      })
+    }
+  })
+
+  var mailOptions = {
+    from: 'BeneficiosUM <beneficiosum2018@gmail.com>',
+    to: 'gcolacibils@gmail.com',
+    subject: 'Confirmación de cuenta de BeneficiosUM',
+    text: 'hola'
+  }
+
+  transporter.sendMail(mailOptions, function(err, res){
+    if(err){
+      console.log(err);
+    } else {
+      console.log('Email sent');
+    }
+  })
+
+  //ver este video https://www.youtube.com/watch?v=JJ44WA_eV8E
 }
+  */
 
 exports.usuarios_activar = (req, res, next) => {
   var email = req.body.email;
