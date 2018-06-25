@@ -1,10 +1,9 @@
 const mongoose = require('mongoose');
 const Beneficio = require('../models/beneficio');
-//const DeviceController = require('./devices');
+// const DeviceController = require('./devices');
 const notificationSender = require('../../sendNotification');
 
 exports.beneficios_get_all = (req, res, next) => {
-
     Beneficio.find().select('-__v').exec().then((docs) => {
         console.log(docs);
         const response = {
