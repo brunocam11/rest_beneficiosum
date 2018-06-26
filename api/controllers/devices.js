@@ -11,8 +11,8 @@ exports.recibir_token = (req, res, next) => {
           .exec()
           .then( device => {
             if (device.length >= 1) {
-              Device.update({duuid: duuid}, {$set: {email: req.body.email, token: req.body.token}}).exec().then((result) => {
-                res.status(200).json(result);
+              Device.update({duuid: req.body.duuid}, {$set: {email: req.body.email, token: req.body.token}}).exec().then((result) => {
+                //res.status(200).json(result);
             }).catch((err) => {
                 console.log(err);
                 res.status(500).json({ error: err });
