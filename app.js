@@ -18,7 +18,7 @@ mongoose.connect('mongodb+srv://beneficiosum:beneficiosum@beneficios-um-rest-87d
 app.use(morgan('dev'));
 app.use('/fotos', express.static('fotos'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // CORS Allow
 app.use((req, res, next) => {

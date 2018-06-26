@@ -7,7 +7,7 @@ const beneficiosSchema = mongoose.Schema({
     promocion: { type: String, required: false},
     locales: { type: Array, required: false },
     foto: { type: String, required: true },
-    categorias: { type: Array, required: false },
+    categorias: { type: String, required: false },
     fch_inicio: { type: JSON, required: false},
     fch_fin: { type: JSON, required: false}
 });
