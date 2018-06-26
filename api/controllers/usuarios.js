@@ -135,8 +135,8 @@ transporter.sendMail({
     to: req.body.email,
     subject: 'Confirmación de cuenta de BeneficiosUM',
     html: '<p>Hola '+req.body.nombre+',</p>'+
-    '<p>¡Gracias por registrarte a BeneficiosUM</p>'+
-    '<p>Ahora estarás al tanto de todos los beneficios que tenés por estudiar en la UM</p>'+
+    '<p>¡Gracias por registrarte a BeneficiosUM!</p>'+
+    '<p>Ahora estarás al tanto de todos los beneficios que tenés por estudiar en la UM.</p>'+
     '<p>Tu número de verificación es: '+req.body.numeroVerificacion+'</p>',
     auth: {
         user: 'beneficiosum2018@gmail.com',
